@@ -202,7 +202,7 @@ export default {
     },
     handleUpdate(index, row) {
       this.$router.push({
-        path: "/crawlSite/update",
+        path: "/site/updateSite",
         query: { id: row.id },
       });
     },

@@ -2,9 +2,9 @@
   <brand-detail :is-edit='false'></brand-detail>
 </template>
 <script>
-  import CrawlSiteDetail from './components/crawlSiteDetail'
+  import CrawlSiteDetail from './components/CrawlSiteDetail'
   export default {
-    name: 'addcrawlSite',
+    name: 'addSite',
     components: { CrawlSiteDetail }
   }
 </script>
