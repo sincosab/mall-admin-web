@@ -1,5 +1,5 @@
 <template> 
-  <brand-detail :is-edit='false'></brand-detail>
+  <crawlSite-detail :is-edit='false'></crawlSite-detail>
 </template>
 <script>
   import CrawlSiteDetail from './components/CrawlSiteDetail'

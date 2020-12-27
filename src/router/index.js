@@ -51,12 +51,7 @@ export const asyncRouterMap = [
         component: () => import('@/views/search/crawlSite/add'),
         meta: { title: '添加站点', icon: 'site-add' }
       },
-      {
-        path: 'deleteSite',
-        name: 'deleteSite',
-        component: () => import('@/views/search/crawlSite/delete'),
-        meta: { title: '删除站点', icon: 'site-list' }
-      },
+    
       {
         path: 'updateSite',
         name: 'updateSite',
@@ -65,8 +60,8 @@ export const asyncRouterMap = [
         hidden: true
       },
       {
-        path: 'querySite',
-        name: 'querySite',
+        path: 'crawlSite',
+        name: 'crawlSite',
         component: () => import('@/views/search/crawlSite/query'),
         meta: { title: '站点列表', icon: 'site-list' }
       },

@@ -7,16 +7,14 @@
       ref="crawlSiteFrom"
       label-width="150px"
     >
-      <el-form-item label="网站id：" prop="name">
-        <el-input v-model="crawlSite.id"></el-input>
-      </el-form-item>
+ 
       <el-form-item label="网站名称：" prop="name">
         <el-input v-model="crawlSite.site"></el-input>
       </el-form-item>
       <el-form-item label="初始URL：">
         <el-input v-model="crawlSite.initUrl"></el-input>
       </el-form-item>
-      <el-form-item label="分页URL：" prop="logo">
+      <el-form-item label="分页URL：">
         <el-input v-model="crawlSite.pageUrl"></el-input>
       </el-form-item>
       <el-form-item label="开始页码：">
@@ -102,15 +100,7 @@ export default {
     return {
       crawlSite: Object.assign({}, defaultCrawlSite),
       rules: {
-        name: [
-          { required: true, message: "请输入网站名称", trigger: "blur" },
-          {
-            min: 2,
-            max: 140,
-            message: "长度在 2 到 140 个字符",
-            trigger: "blur",
-          },
-        ],
+      
       },
     };
   },

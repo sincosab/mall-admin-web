@@ -153,8 +153,9 @@
 <script>
 import {
   listCrawlSite,
-  updateStatus,
-  deleteCrawlSite,
+  updateCrawlSite,
+  createCrawlSite,
+  getCrawlSite,
 } from "@/api/crawlSite";
 
 export default {
@@ -296,7 +297,7 @@ export default {
       });
     },
     addCrawlSite() {
-      this.$router.push({ path: "/crawlSite/create" });
+      this.$router.push({ path: "/search/addSite" });
     },
   },
 };
