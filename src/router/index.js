@@ -66,9 +66,32 @@ export const asyncRouterMap = [
         meta: { title: '站点列表', icon: 'site-list' }
       },
 
+      {
+        path: 'addData',
+        name: 'addData',
+        component: () => import('@/views/search/crawlData/add'),
+        meta: { title: '添加站点数据', icon: 'site-add' }
+      },
+    
+      {
+        path: 'updateData',
+        name: 'updateData',
+        component: () => import('@/views/search/crawlData/update'),
+        meta: { title: '修改站点数据', icon: 'site-add' },
+        hidden: true
+      },
+      {
+        path: 'crawlData',
+        name: 'crawlData',
+        component: () => import('@/views/search/crawlData/query'),
+        meta: { title: '站点数据列表', icon: 'site-list' }
+      },
+  
 
     ]
   },
+
+
 
 
   {

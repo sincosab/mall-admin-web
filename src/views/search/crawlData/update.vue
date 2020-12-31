@@ -1,11 +1,11 @@
 <template> 
-  <brand-detail :is-edit='true'></brand-detail>
+  <crawlData-detail :is-edit='true'></crawlData-detail>
 </template>
 <script>
-  import BrandDetail from './components/BrandDetail'
+  import CrawlDataDetail from './components/CrawlDataDetail'
   export default {
-    name: 'updateBrand',
-    components: { BrandDetail }
+    name: 'updateData',
+    components: { CrawlDataDetail }
   }
 </script>
 <style>
