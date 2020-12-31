@@ -55,7 +55,7 @@
         <el-table-column label="网站ID" width="100" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="网站名称" align="center">
+        <el-table-column label="网站名称" width="200" align="center">
           <template slot-scope="scope">{{ scope.row.site }}</template>
         </el-table-column>
         <el-table-column label="初始URL" width="100" align="center">
@@ -71,25 +71,29 @@
           <template slot-scope="scope">{{ scope.row.pageEnd }}</template>
         </el-table-column>
         <el-table-column label="正则表达式" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.pageUrl }}</template>
+          <template slot-scope="scope">{{ scope.row.regex }}</template>
         </el-table-column>
         <el-table-column label="匹配URL" align="center">
-          <template slot-scope="scope">{{ scope.row.site }}</template>
+          <template slot-scope="scope">{{ scope.row.matchUrl }}</template>
         </el-table-column>
         <el-table-column label="meta标志" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.initUrl }}</template>
+          <template slot-scope="scope">{{ scope.row.metaFlag }}</template>
         </el-table-column>
-        <el-table-column label="创建时间" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.pageUrl }}</template>
+        <el-table-column label="创建时间" width="150" align="center">
+          <template slot-scope="scope">{{
+            scope.row.createTime | formatDateTime
+          }}</template>
         </el-table-column>
-        <el-table-column label="修改时间" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.pageUrl }}</template>
+        <el-table-column label="修改时间" width="150" align="center">
+          <template slot-scope="scope">{{
+            scope.row.updateTime | formatDateTime
+          }}</template>
         </el-table-column>
 
-        <el-table-column label="是否有效" width="100" align="center">
+        <el-table-column label="是否启用" width="140" align="center">
           <template slot-scope="scope">
             <el-switch
-              @change="handleShowStatusChange(scope.$index, scope.row)"
+              @change="handleStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
               v-model="scope.row.status"
@@ -142,7 +146,7 @@
         @current-change="handleCurrentChange"
         layout="total, sizes,prev, pager, next,jumper"
         :page-size="listQuery.pageSize"
-        :page-sizes="[5, 10, 15]"
+        :page-sizes="[10, 50, 100]"
         :current-page.sync="listQuery.pageNum"
         :total="total"
       >
@@ -154,10 +158,12 @@
 import {
   listCrawlSite,
   updateCrawlSite,
+  updateStatus,
   createCrawlSite,
+  deleteCrawlSite,
   getCrawlSite,
 } from "@/api/crawlSite";
-
+import { formatDate } from "@/utils/date";
 export default {
   name: "crawlSiteList",
   data() {
@@ -187,6 +193,15 @@ export default {
   created() {
     this.getList();
   },
+  filters: {
+    formatDateTime(time) {
+      if (time == null || time === "") {
+        return "N/A";
+      }
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm:ss");
+    },
+  },
   methods: {
     getList() {
       this.listLoading = true;
@@ -203,7 +218,7 @@ export default {
     },
     handleUpdate(index, row) {
       this.$router.push({
-        path: "/site/updateSite",
+        path: "/search/updateSite",
         query: { id: row.id },
       });
     },
@@ -223,7 +238,7 @@ export default {
         });
       });
     },
-   
+
     handleStatusChange(index, row) {
       let data = new URLSearchParams();
       data.append("ids", row.id);
@@ -237,7 +252,7 @@ export default {
           });
         })
         .catch((error) => {
-          if (row.Status === 0) {
+          if (row.status === 0) {
             row.status = 1;
           } else {
             row.status = 0;

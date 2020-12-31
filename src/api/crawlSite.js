@@ -13,7 +13,13 @@ export function createCrawlSite(data) {
     data:data
   })
 }
-
+export function updateStatus(data) {
+  return request({
+    url:'/crawlSite/updateStatus',
+    method:'post',
+    data:data
+  })
+}
 export function getCrawlSite(id) {
   return request({
     url:'/crawlSite/'+id,
@@ -28,4 +34,12 @@ export function updateCrawlSite(id,data) {
     data:data
   })
 }
+
+  export function deleteCrawlSite(id) {
+    return request({
+      url:'/crawlSite/delete/'+id,
+      method:'get',
+    })
+  }
+
 

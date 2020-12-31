@@ -7,7 +7,6 @@
       ref="crawlSiteFrom"
       label-width="150px"
     >
- 
       <el-form-item label="网站名称：" prop="name">
         <el-input v-model="crawlSite.site"></el-input>
       </el-form-item>
@@ -31,12 +30,6 @@
       </el-form-item>
       <el-form-item label="meta 标志：">
         <el-input v-model="crawlSite.metaFlag"></el-input>
-      </el-form-item>
-      <el-form-item label="创建时间：">
-        <el-input v-model="crawlSite.createTime"></el-input>
-      </el-form-item>
-      <el-form-item label="修改时间：">
-        <el-input v-model="crawlSite.updateTime"></el-input>
       </el-form-item>
       <el-form-item label="是否有效：">
         <el-radio-group v-model="crawlSite.status">
@@ -63,6 +56,7 @@ import {
   getCrawlSite,
   updateCrawlSite,
 } from "@/api/crawlSite";
+
 const defaultCrawlSite = {
   id: "",
 
@@ -99,11 +93,10 @@ export default {
   data() {
     return {
       crawlSite: Object.assign({}, defaultCrawlSite),
-      rules: {
-      
-      },
+      rules: {},
     };
   },
+
   created() {
     if (this.isEdit) {
       getCrawlSite(this.$route.query.id).then((response) => {
