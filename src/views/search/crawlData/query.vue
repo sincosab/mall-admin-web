@@ -7,7 +7,7 @@
         <span>筛选搜索</span>
         <el-button
           style="float: right"
-          @click="searchCrawlSiteList()"
+          @click="searchCrawlDataList()"
           type="primary"
           size="small"
         >
@@ -34,15 +34,16 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>数据列表</span>
-      <el-button class="btn-add" @click="addCrawlSite()" size="mini">
+      <el-button class="btn-add" @click="addCrawlData()" size="mini">
         添加
       </el-button>
     </el-card>
     <div class="table-container">
       <el-table
-        ref="crawlSiteTable"
+        ref="crawlDataTable"
         :data="list"
-        style="width: 100%"
+        :row-style="{ height: '20px' }"
+        :cell-style="{ padding: '5px 0px' }"
         @selection-change="handleSelectionChange"
         v-loading="listLoading"
         border
@@ -52,52 +53,38 @@
           width="60"
           align="center"
         ></el-table-column>
-        <el-table-column label="网站ID" width="100" align="center">
+        <el-table-column label="编号" width="100" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="网站名称" width="200" align="center">
-          <template slot-scope="scope">{{ scope.row.domainName }}</template>
-        </el-table-column>
-           <el-table-column label="baseUrl" width="300" align="center">
-          <template slot-scope="scope">{{ scope.row.baseUrl }}</template>
-        </el-table-column>
-          <el-table-column label="站点" width="200" align="center">
+        <el-table-column label="网站名称" width="250" align="center">
           <template slot-scope="scope">{{ scope.row.site }}</template>
         </el-table-column>
-        <el-table-column label="标题" width="200" align="center">
+        <el-table-column label="网站域名" width="200" align="center">
+          <template slot-scope="scope">{{ scope.row.domain }}</template>
+        </el-table-column>
+        <el-table-column label="标题" width="300" align="left">
           <template slot-scope="scope">{{ scope.row.title }}</template>
         </el-table-column>
-          <el-table-column label="内容" width="200" align="center">
-          <template slot-scope="scope">{{ scope.row.content }}</template>
+
+        <el-table-column label="内容" width="500" align="left">
+          <template slot-scope="scope">{{ scope.row.content }}
+          </template>
         </el-table-column>
-        <el-table-column label="关键字" width="200" align="center">
-          <template slot-scope="scope">{{ scope.row.keyword }}</template>
-        </el-table-column>
-        <el-table-column label="发布日期" width="200" align="center">
+        <el-table-column label="发布日期" width="100" align="center">
           <template slot-scope="scope">{{ scope.row.publishTime }}</template>
         </el-table-column>
-       
+        <el-table-column label="关键字" width="100" align="center">
+          <template slot-scope="scope">{{ scope.row.keyword }}</template>
+        </el-table-column>
 
-        <el-table-column label="初始URL" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.initUrl }}</template>
+        <el-table-column label="省份" align="center">
+          <template slot-scope="scope">{{ scope.row.province }}</template>
         </el-table-column>
-        <el-table-column label="分页URL" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.pageUrl }}</template>
+        <el-table-column label="市" width="100" align="center">
+          <template slot-scope="scope">{{ scope.row.city }}</template>
         </el-table-column>
-        <el-table-column label="开始页码" align="center">
-          <template slot-scope="scope">{{ scope.row.pageStart }}</template>
-        </el-table-column>
-        <el-table-column label="结束页码" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.pageEnd }}</template>
-        </el-table-column>
-        <el-table-column label="正则表达式" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.regex }}</template>
-        </el-table-column>
-        <el-table-column label="匹配URL" align="center">
-          <template slot-scope="scope">{{ scope.row.matchUrl }}</template>
-        </el-table-column>
-        <el-table-column label="meta标志" width="100" align="center">
-          <template slot-scope="scope">{{ scope.row.metaFlag }}</template>
+        <el-table-column label="url" align="center" width="200">
+          <template slot-scope="scope">{{ scope.row.url }}</template>
         </el-table-column>
         <el-table-column label="创建时间" width="150" align="center">
           <template slot-scope="scope">{{
@@ -176,16 +163,16 @@
 </template>
 <script>
 import {
-  listCrawlSite,
-  updateCrawlSite,
+  listCrawlData,
+  updateCrawlData,
   updateStatus,
-  createCrawlSite,
-  deleteCrawlSite,
-  getCrawlSite,
-} from "@/api/crawlSite";
+  createCrawlData,
+  deleteCrawlData,
+  getCrawlData,
+} from "@/api/crawlData";
 import { formatDate } from "@/utils/date";
 export default {
-  name: "crawlSiteList",
+  name: "crawlDataList",
   data() {
     return {
       operates: [
@@ -225,7 +212,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true;
-      listCrawlSite(this.listQuery).then((response) => {
+      listCrawlData(this.listQuery).then((response) => {
         this.listLoading = false;
         this.list = response.data.list;
         this.total = response.data.total;
@@ -238,7 +225,7 @@ export default {
     },
     handleUpdate(index, row) {
       this.$router.push({
-        path: "/search/updateSite",
+        path: "/search/updateData",
         query: { id: row.id },
       });
     },
@@ -248,7 +235,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        deleteCrawlSite(row.id).then((response) => {
+        deleteCrawlData(row.id).then((response) => {
           this.$message({
             message: "删除成功",
             type: "success",
@@ -288,7 +275,7 @@ export default {
       this.listQuery.pageNum = val;
       this.getList();
     },
-    searchCrawlSiteList() {
+    searchCrawlDataList() {
       this.listQuery.pageNum = 1;
       this.getList();
     },
@@ -303,9 +290,9 @@ export default {
         return;
       }
       let showStatus = 0;
-      if (this.operateType === "showCrawlSite") {
+      if (this.operateType === "showCrawlData") {
         showStatus = 1;
-      } else if (this.operateType === "hideCrawlSite") {
+      } else if (this.operateType === "hideCrawlData") {
         showStatus = 0;
       } else {
         this.$message({
@@ -322,7 +309,7 @@ export default {
       let data = new URLSearchParams();
       data.append("ids", ids);
       data.append("status", status);
-      updateStatus(data).then((response) => {
+      updateDataStatus(data).then((response) => {
         this.getList();
         this.$message({
           message: "修改成功",
@@ -331,13 +318,24 @@ export default {
         });
       });
     },
-    addCrawlSite() {
-      this.$router.push({ path: "/search/addSite" });
+    addCrawlData() {
+      this.$router.push({ path: "/search/addData" });
     },
   },
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+.content {
+  height: 26px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.el-table .cell {
+  line-height: 26px;
+  height: 26px;
+}
 </style>
 
 

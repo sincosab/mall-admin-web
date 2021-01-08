@@ -8,6 +8,20 @@
       label-width="150px"
     >
       <el-form-item label="网站名称：" prop="name">
+        <el-input v-model="crawlSite.domainName"></el-input>
+      </el-form-item>
+
+      <el-form-item label="baseUrl：">
+        <el-input v-model="crawlSite.baseUrl"></el-input>
+      </el-form-item>
+      <el-form-item label="标题title：">
+        <el-input v-model="crawlSite.title"></el-input>
+      </el-form-item>
+        <el-form-item label="内容content：">
+        <el-input v-model="crawlSite.content"></el-input>
+      </el-form-item>
+      
+      <el-form-item label="站点site：" prop="name">
         <el-input v-model="crawlSite.site"></el-input>
       </el-form-item>
       <el-form-item label="初始URL：">
@@ -21,6 +35,12 @@
       </el-form-item>
       <el-form-item label="结束页码：">
         <el-input v-model="crawlSite.pageEnd"></el-input>
+      </el-form-item>
+      <el-form-item label="关键字keyword：">
+        <el-input v-model="crawlSite.content"></el-input>
+      </el-form-item>
+      <el-form-item label="发布日期：">
+        <el-input v-model="crawlSite.publishTime"></el-input>
       </el-form-item>
       <el-form-item label="正则表达式：">
         <el-input v-model="crawlSite.regex"></el-input>
@@ -81,6 +101,13 @@ const defaultCrawlSite = {
   createTime: "",
 
   updateTime: "",
+
+  baseUrl: "",
+  domainName: "",
+  title: "",
+  content: "",
+  keyword: "",
+  publishTime: "",
 };
 export default {
   name: "CrawlSiteDetail",
