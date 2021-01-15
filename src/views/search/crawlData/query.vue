@@ -324,13 +324,7 @@ export default {
   },
 };
 </script>
-<style rel="stylesheet/scss" lang="scss" scoped>
-.content {
-  height: 26px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+<style rel="stylesheet/scss">
 
 .el-table .cell {
   line-height: 26px;
